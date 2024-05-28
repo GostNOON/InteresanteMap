@@ -1,5 +1,14 @@
 var map = L.map('map').fitWorld();
 
+var fs = require('fs');
+
+let list = fs.readFileSync('./Data/SmartDrobeSystem/pieces.json');
+this.pieces = JSON.parse(list);
+
+//fs.writeFileSync('./Data/SmartDrobeSystem/pieces.json', JSON.stringify(this.pieces));
+
+
+
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -13,6 +22,15 @@ var polygon = L.polygon([
         [51.51, -0.047],
         [51.515, -0.054]
 ]).addTo(map);
+
+function createPositions(p) {
+    for (let i in p.p1) {
+        var marker = L.marker(i).addTo(map);
+    }
+    for (let i in p.p2) {
+        var marker = L.marker(i).addTo(map);
+    }
+}
 
 var popup = L.popup();
 
